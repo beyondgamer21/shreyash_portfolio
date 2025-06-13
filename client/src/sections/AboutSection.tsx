@@ -1,0 +1,106 @@
+
+import { motion } from 'framer-motion';
+import { useScrollReveal } from '@/hooks/use-scroll-reveal';
+
+interface Skill {
+  name: string;
+  percentage: number;
+}
+
+export default function AboutSection() {
+  const skills: Skill[] = [
+    
+    { name: "After Effects", percentage: 90 },
+    { name: "DaVinci Resolve", percentage: 70 },
+    { name: "Motion Graphics", percentage: 86 }
+  ];
+
+  const imageRef = useScrollReveal<HTMLDivElement>({
+    threshold: 0.1,
+  });
+
+  const contentRef = useScrollReveal<HTMLDivElement>({
+    threshold: 0.1,
+  });
+
+  return (
+    <section id="about" className="section pt-20">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col lg:flex-row gap-12 items-center">
+          <motion.div 
+            ref={imageRef}
+            className="lg:w-1/2 reveal"
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          />
+
+          <motion.div 
+            ref={contentRef}
+            className="lg:w-1/2 reveal"
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 font-montserrat bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              About Me
+            </h2>
+            <p className="text-gray-300 mb-6">
+              I'm <span className="text-accent font-bold">Shrayash</span>, a professional video editor with over 5 years of experience crafting compelling visual stories. My passion lies in transforming raw footage into polished, engaging content that captivates audiences.
+            </p>
+            <p className="text-gray-300 mb-6">
+              I specialize in creative editing techniques, visual effects, and color grading. My approach combines technical expertise with artistic vision to deliver content that not only meets but exceeds client expectations.
+            </p>
+
+            <div className="mb-8">
+              <h3 className="text-xl font-semibold mb-4 font-montserrat">My Skills</h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {skills.map((skill, index) => (
+                  <motion.div 
+                    key={index} 
+                    className="flex flex-col gap-2"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.1 * index }}
+                  >
+                    <div className="flex justify-between">
+                      <span className="text-gray-300">{skill.name}</span>
+                      <span className="text-accent">{skill.percentage}%</span>
+                    </div>
+                    <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
+                      <motion.div 
+                        className="bg-gradient-to-r from-primary to-secondary h-full rounded-full"
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${skill.percentage}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1, delay: 0.2 * index }}
+                      />
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            <a 
+              href="#contact" 
+              className="btn-primary hover-element"
+              onClick={(e) => {
+                e.preventDefault();
+                const contactSection = document.querySelector('#contact');
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
+            >
+              Lets Work Together
+            </a> 
+          </motion.div>
+        </div>
+      </div>
+    </section>  
+  );
+}

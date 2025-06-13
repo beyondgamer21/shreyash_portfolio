@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Base color tokens */
+  --background: 220 18% 10%; /* Dark background */
+  --foreground: 0 0% 98%;
+  --muted: 220 15% 15%;
+  --muted-foreground: 220 10% 70%;
+  --popover: 220 18% 12%;
+  --popover-foreground: 0 0% 98%;
+  --card: 220 18% 12%;
+  --card-foreground: 0 0% 98%;
+  --border: 240 5% 20%;
+  --input: 240 5% 20%;
+  
+  /* Brand colors for video editor portfolio */
+  --primary: 262 84% 57%; /* Purple - vibrant */  
+  --primary-foreground: 0 0% 100%;
+  --secondary: 245 72% 60%; /* Indigo blue */
+  --secondary-foreground: 0 0% 100%;
+  --accent: 330 80% 60%; /* Pink */
+  --accent-foreground: 0 0% 100%;
+  
+  /* Semantic colors */
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --success: 142 76% 45%;
+  --success-foreground: 0 0% 98%;
+  --warning: 38 92% 50%;
+  --warning-foreground: 0 0% 10%;
+  
+  /* UI elements */
+  --ring: 262 84% 57%;
+  --radius: 0.5rem;
+  
+  /* For semantic variable names */
+  --dark: 220 18% 10%;
+  --light: 0 0% 98%;
+}
+
+.dark {
+  --background: 220 18% 10%;
+  --foreground: 0 0% 98%;
+  --muted: 240 5% 20%;
+  --muted-foreground: 240 5% 65%;
+  --popover: 220 18% 12%;
+  --popover-foreground: 0 0% 98%;
+  --card: 220 18% 12%;
+  --card-foreground: 0 0% 98%;
+  --border: 240 5% 20%;
+  --input: 240 5% 20%;
+  --primary: 262 84% 57%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 245 72% 60%;
+  --secondary-foreground: 0 0% 100%;
+  --accent: 330 80% 60%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 262 84% 57%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-dark text-light;
+    cursor: none;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-montserrat font-bold;
+  }
+  
+  p {
+    @apply font-inter;
+  }
+}
+
+@layer components {
+  /* Custom components */
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-primary hover:bg-primary/90 text-white font-semibold py-4 px-8 transition-all duration-300 uppercase tracking-wide;
+  }
+  
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+  }
+  
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Portfolio item hover effects */
+  .portfolio-item:hover .portfolio-overlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Custom cursor */
+  .has-custom-cursor {
+    cursor: none !important;
+  }
+  
+  .cursor {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: hsl(var(--primary));
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s;
+  }
+  
+  .cursor.hover {
+    width: 20px;
+    height: 20px;
+    background-color: hsl(var(--accent));
+    mix-blend-mode: difference;
+  }
+  
+  .cursor-follower {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, border 0.2s, background-color 0.2s;
+  }
+  
+  .cursor-follower.hover {
+    width: 50px;
+    height: 50px;
+    border-color: hsl(var(--accent), 0.5);
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  /* Responsive handling */
+  @media (max-width: 768px) {
+    .cursor, .cursor-follower {
+      display: none;
+    }
+    
+    body {
+      cursor: auto;
+    }
+  }
+  
+  /* Video player */
+  .video-player-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+  
+  .video-player-overlay {
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 70%);
+  }
+  
+  .video-play-button {
+    background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--secondary)));
+    box-shadow: 0 0 30px rgba(108, 47, 246, 0.6);
+  }
+  
+  /* Modal animations */
+  .modal {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .modal.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .modal-content {
+    transform: translateY(20px);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .modal.active .modal-content {
+    transform: translateY(0);
+  }
+  
+  /* Grain overlay for texture */
+  .grain-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9997;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+}

@@ -54,7 +54,9 @@ app.use((req, res, next) => {
   }
 
   const port = 5000;
-  server.listen(port, "127.0.0.1", () => {
-    log(`serving on port ${port}`);
-  });
+ server.listen({
+  port: process.env.PORT || 5000,
+  host: "0.0.0.0",
+});
+
 })();
